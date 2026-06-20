@@ -1,38 +1,3 @@
-"""
-preprocess_financial.py
-=======================
-Dataset 2 — "Financial Transactions Dataset for Fraud Detection"
-(Kumar, 2025, Kaggle). Five million synthetic bank transactions,
-Jan 2023 – Jan 2024, fraud rate ~3.6%.
-
-Pipeline (Chapter 3 §3.2.1, Chapter 4 §4.3.4(2), Tables 4.3 / 4.4):
-  1.  Load and inspect structure / first rows               (Figures D.8, D.9)
-  2.  Raw visualisation: is_fraud bar, transaction-type
-      pie+bar, amount histogram, risk-score boxplots,
-      fraud rate by type                                    (Figures C.4–C.9)
-  3.  Column selection — keep the nine evidence-based
-      columns (Table 4.3), drop the rest (Table 4.4)
-  4.  Null check (fraud_type nulls expected), duplicates    (Figures D.12, D.13)
-  5.  Outlier removal on `amount` using the IQR rule
-      (workflow Figure 3.1: "IQR on financial")
-  6.  Binary label standardisation (is_fraud -> 0/1)        (Table 4.6)
-  7.  CHRONOLOGICAL SORT by timestamp (drift simulation);
-      temporal features hour / day-of-week / month;
-      ordinal encoding of transaction_type;
-      StandardScaler on continuous features                 (Figures D.14–D.16)
-      (timestamp itself is NOT scaled — kept only for stream
-       ordering and the false-drift calendar comparison)
-  8.  C-SMOTE streaming oversampling (k=5, reservoir>=100,
-      ADWIN delta=0.002): 179,553 -> ~majority count        (Figure 4.2)
-  9.  Save cleaned parquet/CSV + balanced feature matrix.
-
-NOTE ON RUNTIME: this dataset has 5,000,000 rows. The streaming C-SMOTE
-loop is pure Python and may take a long while on the full file. Set
-SAMPLE_FRAC < 1.0 for a quick pilot run, and 1.0 for the final PSM run.
-
-Run:  python preprocess_financial.py
-"""
-
 import os
 
 import matplotlib

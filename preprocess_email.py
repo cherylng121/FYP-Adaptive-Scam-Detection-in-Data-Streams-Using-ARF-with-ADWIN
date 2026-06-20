@@ -1,28 +1,3 @@
-"""
-preprocess_email.py
-===================
-Dataset 3 — "Phishing email Detection" (Chakraborty, 2023, Kaggle).
-~18,650 labelled emails. Columns: Unnamed: 0, Email Text, Email Type.
-
-Pipeline (Chapter 3 §3.2.1, Chapter 4 §4.3.4(3)):
-  1.  Load and inspect structure / first rows               (Figures D.17, D.18)
-  2.  Raw visualisation: type pie+bar, body-length
-      histogram, top-10 words per class                     (Figures C.10–C.12)
-  3.  Remove 16 records with missing body text;
-      duplicate check (0 expected)                          (Figures D.19, D.20)
-  4.  Binary label standardisation
-      (Safe Email -> 0, Phishing Email -> 1)                (Table 4.6)
-  5.  Text cleaning (URLs, e-mails, non-alphabetic chars,
-      stopwords); body_len + word_count features            (Figures D.21–D.23)
-  6.  TF-IDF (300 n-grams, ngram_range=(1,2)) + numeric
-      features -> TruncatedSVD to 50 dense dimensions       (Table 4.7)
-  7.  C-SMOTE streaming oversampling (k=5, reservoir>=100,
-      ADWIN delta=0.002): 7,312 -> ~11,329                  (Figure 4.3)
-  8.  Save cleaned CSV + dense balanced feature matrix.
-
-Run:  python preprocess_email.py
-"""
-
 import os
 import re
 from collections import Counter

@@ -1,28 +1,3 @@
-"""
-preprocess_sms.py
-=================
-Dataset 1 — "A Balanced Dataset for Spam and Smishing Detection using LLMs"
-(Munoz & Islam, 2025, Mendeley Data). Columns: LABEL, TEXT, URL, EMAIL, PHONE.
-
-Pipeline (Chapter 3 §3.2.1, Chapter 4 §4.3.4(1) of the thesis):
-  1.  Load and inspect structure / first rows               (Figures D.1, D.2)
-  2.  Raw visualisation: label pie+bar, URL/EMAIL/PHONE,
-      message-length distribution                           (Figures C.1–C.3)
-  3.  Null check, duplicate removal (2,169 expected)        (Figures D.3, D.4)
-  4.  Binary label standardisation (ham=0; spam,smishing=1) (Table 4.6)
-      Note: both "spam" and "smishing" are merged into the "scam" (1) class.
-  5.  Text cleaning: strip URLs / emails / phones /
-      non-alphabetic chars, lowercase, stopword removal
-  6.  Feature engineering: msg_len, binary URL/EMAIL/PHONE  (Figures D.5–D.7)
-  7.  TF-IDF (200 n-grams, ngram_range=(1,2)) + numeric
-      indicators -> TruncatedSVD to 50 dense dimensions     (Table 4.7)
-  8.  C-SMOTE streaming oversampling (k=5, reservoir>=100,
-      ADWIN delta=0.002) -> exactly 6,794 ham vs 6,794 scam (Figure 4.1)
-  9.  Save cleaned CSV + dense balanced feature matrix.
-
-Run:  python preprocess_sms.py
-"""
-
 import os
 import re
 
