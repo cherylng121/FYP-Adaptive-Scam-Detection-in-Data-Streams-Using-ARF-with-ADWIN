@@ -81,20 +81,6 @@ class CSMOTE:
     GEN_BATCH_SIZE: int = 4_096
 
     def generate_batch(self, n: int) -> np.ndarray:
-        """
-        Vectorised generation of *n* synthetic minority instances.
-
-        Internally splits large requests into sub-batches of at most
-        GEN_BATCH_SIZE rows so that the temporary (n, m, d) distance
-        tensor never causes an out-of-memory error (e.g. on the 5 M-row
-        financial dataset where a single call may request 200 k+ samples).
-
-        For each synthetic sample:
-          1. pick a random base record from the reservoir,
-          2. find its k nearest neighbours inside the reservoir (Euclidean),
-          3. interpolate:  x_new = x_base + gap * (x_neighbour - x_base),
-             gap ~ U(0, 1).
-        """
         if not self.can_generate():
             raise RuntimeError(
                 f"Reservoir too small ({len(self.reservoir)} < "
@@ -118,11 +104,6 @@ class CSMOTE:
         return np.vstack(parts)
 
     def _generate_batch_core(self, n: int) -> np.ndarray:
-        """
-        Low-level vectorised kernel: generate *n* samples without touching
-        self.n_synthetic (the caller is responsible for bookkeeping).
-        n must be <= GEN_BATCH_SIZE to keep memory bounded.
-        """
         R = np.stack(self.reservoir)                     # (m, d)
         m = R.shape[0]
         k = min(self.k_neighbors, m - 1)
