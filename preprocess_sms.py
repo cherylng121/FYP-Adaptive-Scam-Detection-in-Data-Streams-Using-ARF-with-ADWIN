@@ -123,7 +123,7 @@ def main() -> None:
     df = df.dropna(subset=["TEXT"])               # drop records missing TEXT
 
     n_dupes = df.duplicated().sum()
-    print(f"Duplicate rows: {n_dupes}")           # 2,169 expected
+    print(f"Duplicate rows: {n_dupes}")
     df = df.drop_duplicates().reset_index(drop=True)
 
     # =================================================================== #
@@ -179,8 +179,6 @@ def main() -> None:
     # =================================================================== #
     # 7. TF-IDF (200 n-grams) + indicators -> TruncatedSVD (50 dims)
     # =================================================================== #
-    # NOTE (Section 4.3.5): in the streaming experiment the vocabulary is
-    # learned once from an early portion of the stream and then frozen.
     tfidf = TfidfVectorizer(max_features=TFIDF_MAX_FEATURES,
                             ngram_range=TFIDF_NGRAM_RANGE)
     X_text = tfidf.fit_transform(sms_clean["clean_text"])
@@ -196,8 +194,6 @@ def main() -> None:
 
     # =================================================================== #
     # 8. C-SMOTE STREAMING OVERSAMPLING (k=5, reservoir>=100, delta=0.002)
-    #    Fixed target: exactly TARGET_COUNT per class (6,794 vs 6,794).
-    #    Both ham and scam are trimmed / oversampled to reach TARGET_COUNT.
     # =================================================================== #
     print("\nApplying C-SMOTE in the streaming pipeline ...")
     X_bal, y_bal, sampler = csmote_balance_stream(
