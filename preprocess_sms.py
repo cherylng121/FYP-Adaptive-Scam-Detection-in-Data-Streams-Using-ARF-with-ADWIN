@@ -24,7 +24,6 @@ RANDOM_STATE = 42
 TFIDF_MAX_FEATURES = 200      # Table 4.7 (SMS vocabulary size)
 TFIDF_NGRAM_RANGE = (1, 2)    # unigrams + bigrams
 SVD_COMPONENTS = 50           # dense dimensions fed to C-SMOTE / ARF
-TARGET_COUNT = 6_794          # exact per-class target after C-SMOTE balancing
 
 sns.set_style("whitegrid")
 PALETTE = {"teal": "#3BAEA0", "orange": "#E8745B", "purple": "#7B5EA7"}
@@ -156,8 +155,10 @@ def main() -> None:
 
     n_legit = int((sms_clean["label"] == 0).sum())
     n_scam = int((sms_clean["label"] == 1).sum())
+    TARGET_COUNT = max(n_legit, n_scam)   # balance to majority class size
     print(f"\nAfter cleaning: {len(sms_clean):,} messages "
           f"({n_legit:,} legitimate | {n_scam:,} scam)")
+    print(f"C-SMOTE target per class: {TARGET_COUNT:,}")
 
     # --- Figure D.7: length by binary label + binary label count ---
     fig, ax = plt.subplots(1, 2, figsize=(11, 4.5))
@@ -215,7 +216,7 @@ def main() -> None:
     fig, ax = plt.subplots(1, 2, figsize=(11, 4.5), sharey=True)
     for a, cnt, title in [
         (ax[0], before, "Before C-SMOTE\n(SMS Dataset)"),
-        (ax[1], after,  f"After C-SMOTE\n(SMS Dataset)\n{TARGET_COUNT:,} vs {TARGET_COUNT:,}"),
+        (ax[1], after,  f"After C-SMOTE\n(SMS Dataset)\n{after[0]:,} vs {after[1]:,}"),
     ]:
         bars = a.bar(["Legitimate / Ham (0)", "Spam + Smishing / Scam (1)"], cnt,
                      color=[PALETTE["teal"], PALETTE["orange"]])
