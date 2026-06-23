@@ -395,26 +395,6 @@ PSM 1 has fully completed **Research Objective (a)** — all three datasets are 
 
 ---
 
-## 📚 References
-
-- Aguiar, G. et al. (2023). C-SMOTE for streaming class imbalance.
-- Alarfaj, A. & Shahzadi, S. (2024). Static ML limitations in evolving fraud.
-- Bifet, A. & Gavaldà, R. (2007). Learning from time-changing data with adaptive windowing. *SIAM SDM*.
-- Cardiet. (2026). AI-driven fraud forecast.
-- Chawla, N.V. et al. (2002). SMOTE: Synthetic Minority Over-sampling Technique. *JAIR*.
-- Gama, J. et al. (2014). A survey on concept drift adaptation. *ACM Computing Surveys*.
-- Gomes, H.M. et al. (2017). Adaptive Random Forests for evolving data stream classification. *Machine Learning*.
-- Kumar, A. (2025). Financial Transactions Dataset for Fraud Detection. *Kaggle*.
-- Mehmood, H. et al. (2021). ADWIN for real-time fraud detection.
-- Munoz, J. & Islam, M. (2025). A Balanced Dataset for Spam and Smishing Detection using LLMs. *Mendeley Data*.
-- Paldino, G. et al. (2022). Static ML on real-time fraud streams — miss rate analysis.
-- Rogers. (2024). Global cybercrime cost report.
-- TransUnion. (2025). Global digital fraud trends.
-- Wang, Y. et al. (2025). ADWIN with seasonal filtering for fraud monitoring.
-- Yelleti, V. (2025). ARF + ADWIN (ROSFD) — streaming fraud detection benchmark.
-
----
-
 ## 👤 Author
 
 **Ng Jin En**
@@ -425,7 +405,3 @@ Faculty of Computing, Universiti Teknologi Malaysia
 **Supervisor:** Nurfazrina Binti Mohd Zamry
 
 ---
-
-<div align="center">
-  <sub>PSM 1 · Semester 2, 2025/2026 · Universiti Teknologi Malaysia</sub>
-</div>
